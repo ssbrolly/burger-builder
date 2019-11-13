@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import Aux from "../../hoc/Aux";
-import Burger from "../../components/Burger/Burger";
-import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Aux from '../../hoc/Aux';
+import Burger from '../../components/Burger/Burger';
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Model from '../../components/UI/Model/Model';
+import OrderedSummary from '../../components/Burger/OrderedSummary/OrderedSummary';
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -19,15 +21,30 @@ class BurgerBuilder extends Component {
     state = {
         ingredients: {
             salad: 0,
-            bacon: 0,
             cheese: 0,
+            bacon: 0,
             meat: 0
         },
 
-        totalPrice: 4
+        totalPrice: 4,
+        purchasable: false,
+        purchasing: false,
     };
 
-    addIngredientHandler = type => {
+    updatePurchaseState = (ingredients) => {
+        const sum = Object.keys(ingredients).map(igKey => {
+            return ingredients[igKey];
+        }).reduce((acc, cur) => {
+            return acc + cur;
+        }, 0);
+        this.setState({ purchasable: sum > 0 });
+    };
+
+    purchasingHandler = () => {
+        this.setState({ purchasing: true });
+    };
+
+    addIngredientHandler = (type) => {
         const updatedCount = this.state.ingredients[type] + 1;
         const updatedIngredients = { ...this.state.ingredients };
         updatedIngredients[type] = updatedCount;
@@ -37,9 +54,10 @@ class BurgerBuilder extends Component {
             ingredients: updatedIngredients,
             totalPrice: Math.round(newPrice * 100) / 100
         });
+        this.updatePurchaseState(updatedIngredients);
     };
 
-    removeIngredientHandler = type => {
+    removeIngredientHandler = (type) => {
         if (this.state.ingredients[type] >= 1) {
             const updatedCount = this.state.ingredients[type] - 1;
             const updatedIngredients = { ...this.state.ingredients };
@@ -50,6 +68,7 @@ class BurgerBuilder extends Component {
                 ingredients: updatedIngredients,
                 totalPrice: Math.round(newPrice * 100) / 100
             });
+            this.updatePurchaseState(updatedIngredients);
         }
     };
 
@@ -64,11 +83,17 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
+                <Model show={this.state.purchasing}>
+                    <OrderedSummary ingredient={this.state.ingredients} />
+                </Model>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls
                     ingredientAdded={this.addIngredientHandler}
                     ingredientRemoved={this.removeIngredientHandler}
                     disabled={disabledInfo}
+                    purchasable={this.state.purchasable}
+                    ordered={this.purchasingHandler}
+                    price={this.state.totalPrice}
                 />
             </Aux>
         );

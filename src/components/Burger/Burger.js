@@ -53,12 +53,3 @@ export default burger;
 
 
 
-
-
-
-
-
-
-
-
-
