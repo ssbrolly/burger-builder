@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Aux from '../../hocgit/Aux/Aux';
+import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
@@ -66,6 +66,7 @@ class BurgerBuilder extends Component {
             totalPrice: Math.round(newPrice * 100) / 100
         });
         this.updatePurchaseState(updatedIngredients);
+        console.log(this.state.ingredients)
     };
 
     removeIngredientHandler = (type) => {
