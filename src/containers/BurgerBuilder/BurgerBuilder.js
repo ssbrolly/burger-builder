@@ -66,7 +66,6 @@ class BurgerBuilder extends Component {
             totalPrice: Math.round(newPrice * 100) / 100
         });
         this.updatePurchaseState(updatedIngredients);
-        console.log(this.state.ingredients)
     };
 
     removeIngredientHandler = (type) => {
