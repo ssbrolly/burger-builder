@@ -28,8 +28,8 @@ class Modal extends Component {
                 </div>
             </Aux>
 
-        )
-    }
+        );
+    };
 };
 
 export default Modal;
