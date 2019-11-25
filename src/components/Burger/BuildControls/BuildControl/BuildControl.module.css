@@ -14,6 +14,7 @@
     border: 1px solid #AA6817;
     cursor: pointer;
     outline: none;
+    box-shadow: 2px 2px 2px #966909
 }
 
 .BuildControl button:disabled {
@@ -21,12 +22,14 @@
     border: 1px solid #7E7365;
     color: #ccc;
     cursor: default;
+    box-shadow: 2px 2px 2px #966909
 }
 
 .BuildControl button:hover:disabled {
     background-color: #AC9980;
     color: #ccc;
     cursor: not-allowed;
+    box-shadow: 2px 2px 2px #966909
 }
 
 .Label {
