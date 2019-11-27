@@ -16,6 +16,7 @@ class OrderedSummary extends Component {
                 </li>
             );
         });
+
         return (
             <Aux>
                 <h3>Your Order</h3>
@@ -29,9 +30,7 @@ class OrderedSummary extends Component {
                 <Button btnType="Success" clicked={this.props.purchaseContinued}>CONTINUE</Button>
             </Aux >
         );
-    }
-
-
+    };
 };
 
 export default OrderedSummary;
