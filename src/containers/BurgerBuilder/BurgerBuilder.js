@@ -58,6 +58,7 @@ class BurgerBuilder extends Component {
     purchaseContinueHandler = () => {
         const queryParams = [];
         for (let i in this.state.ingredients) {
+            // endcodeURICompnenet encodes elements to such that elements can be used in the URL
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         };
 

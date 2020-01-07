@@ -13,6 +13,8 @@ class Checkout extends Component {
         const query = new URLSearchParams(this.props.location.search);
         const ingredients = {};
         let price = 0;
+
+        // query.entries() will return an iterable object with {"key", "value"} pair
         for (let param of query.entries()) {
             console.log(param);
             // param = {"key", "value"}
@@ -25,7 +27,7 @@ class Checkout extends Component {
         this.setState({
             ingredients: ingredients,
             totalPrice: price
-        })
+        });
     };
 
     checkoutCancelledHandler = () => {
