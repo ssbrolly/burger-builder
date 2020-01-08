@@ -16,7 +16,6 @@ class Checkout extends Component {
 
         // query.entries() will return an iterable object with {"key", "value"} pair
         for (let param of query.entries()) {
-            console.log(param);
             // param = {"key", "value"}
             if (param[0] === 'price') {
                 price = param[1]
