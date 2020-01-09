@@ -31,16 +31,16 @@ class ContactData extends Component {
             deliveryMethod: 'fasest',
         };
 
-        this.setState({
-            loading: true,
-            totalPrice: 4,
-            ingredients: {
-                salad: 0,
-                meat: 0,
-                bacon: 0,
-                cheese: 0,
-            }
-        });
+        // this.setState({
+        //     loading: true,
+        //     totalPrice: 4,
+        //     ingredients: {
+        //         salad: 0,
+        //         meat: 0,
+        //         bacon: 0,
+        //         cheese: 0,
+        //     }
+        // });
 
         axios.post('orders.json', order)
             .then(res => {
