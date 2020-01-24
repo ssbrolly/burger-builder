@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import Order from '../../components/Order/Order';
+import axios from '../../axios-orders';
+import Order from '../../components/Order/Order'
 
 class Orders extends Component {
+    componentDidMount() {
+
+    }
+
     render() {
         return (
             <div>
