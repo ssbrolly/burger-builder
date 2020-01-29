@@ -6,13 +6,61 @@ import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Input/Input';
 
 class ContactData extends Component {
+
     state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            postalcode: '',
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name',
+                },
+                value: '',
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Street',
+                },
+                value: '',
+            },
+            zipcode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Zip Code',
+                },
+                value: '',
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Country',
+                },
+                value: '',
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Email',
+                },
+                value: '',
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        { value: 'fastest', displayValue: 'Fastest' },
+                        { value: 'cheapest', displayValue: 'Cheapest' },
+                    ],
+                },
+                value: '',
+            },
         },
+
         loading: false,
     };
 
@@ -22,16 +70,6 @@ class ContactData extends Component {
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
-            customer: {
-                name: 'Max Schwarzenegger',
-                address: {
-                    street: 'Teststreet 1',
-                    zipcode: '12345',
-                    country: 'Yourmany',
-                },
-                email: 'test@test.com',
-            },
-            deliveryMethod: 'fasest',
         };
 
         // this.setState({
@@ -60,7 +98,7 @@ class ContactData extends Component {
     render() {
         let form = (
             <form >
-                <Input inputtype="input" type="text" name="name" placeholder="Your Name" />
+                <Input elementType="..." elementConfig="..." value="..." />
                 <Input inputtype="input" type="email" name="email" placeholder="Your Email" />
                 <Input inputtype="input" type="text" name="street" placeholder="Street" />
                 <Input inputtype="input" type="text" name="postal" placeholder="Postal Code" />
@@ -69,6 +107,8 @@ class ContactData extends Component {
                     btnType="Success">ORDER</Button>
             </form>
         );
+
+
 
         if (this.state.loading) {
             form = <Spinner />
