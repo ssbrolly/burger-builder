@@ -8,14 +8,31 @@ const Input = (props) => {
         inputElement = <input
             className={classes.InputElement}
             {...props.elementConfig}
-            value={props.value} />
+            value={props.value}
+            onChange={props.changed} />
 
     } else if (props.elementType === 'textarea') {
         inputElement = <textarea
             className={classes.InputElement}
             {...props.elementConfig}
-            value={props.value} />
+            value={props.value}
+            onChange={props.changed} />
 
+    } else if (props.elementType === 'select') {
+        inputElement = (
+            <select
+                className={classes.InputElement}
+                value={props.value}
+                onChange={props.changed}>
+                {props.elementConfig.options.map(option => (
+                    <option
+                        value={option.value}
+                        key={option.value}>
+                        {option.displayValue}
+                    </option>
+                ))}
+            </select>
+        );
     } else {
         inputElement = <input
             className={classes.InputElement}
