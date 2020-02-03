@@ -16,6 +16,10 @@ class ContactData extends Component {
                     placeholder: 'Your Name',
                 },
                 value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
             },
             street: {
                 elementType: 'input',
@@ -24,6 +28,10 @@ class ContactData extends Component {
                     placeholder: 'Street',
                 },
                 value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
             },
             zipcode: {
                 elementType: 'input',
@@ -32,6 +40,11 @@ class ContactData extends Component {
                     placeholder: 'Zip Code',
                 },
                 value: '',
+                validation: {
+                    required: true,
+                    length: 5
+                },
+                valid: false,
             },
             country: {
                 elementType: 'input',
@@ -40,6 +53,10 @@ class ContactData extends Component {
                     placeholder: 'Country',
                 },
                 value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
             },
             email: {
                 elementType: 'input',
@@ -48,6 +65,10 @@ class ContactData extends Component {
                     placeholder: 'Email',
                 },
                 value: '',
+                validation: {
+                    required: true,
+                },
+                valid: false,
             },
             deliveryMethod: {
                 elementType: 'select',
@@ -67,9 +88,16 @@ class ContactData extends Component {
     orderHandler = (e) => {
         e.preventDefault();
         this.setState({ loading: true })
+
+        const formData = {};
+        for (let dataElementIdentifier in this.state.orderForm) {
+            formData[dataElementIdentifier] = this.state.orderForm[dataElementIdentifier].value;
+        };
+
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
+            orderData: formData,
         };
 
         // this.setState({
@@ -92,8 +120,21 @@ class ContactData extends Component {
                 this.setState({ loading: false });
                 console.log(err);
             });
-
     };
+
+    checkValidity = (value, rules) => {
+        let isValid = true;
+
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        };
+
+        if (rules.length) {
+            isValid = value.length === rules.length && isValid;
+        };
+
+        return isValid;
+    }
 
     inputChangedHandler = (e, inputIdentifier) => {
         const updatedOrderForm = {
@@ -103,7 +144,9 @@ class ContactData extends Component {
             ...updatedOrderForm[inputIdentifier]
         };
         updatedFormElement.value = e.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
         updatedOrderForm[inputIdentifier] = updatedFormElement;
+        console.log(updatedFormElement);
         this.setState({ orderForm: updatedOrderForm });
     };
 
@@ -119,7 +162,7 @@ class ContactData extends Component {
         };
 
         let form = (
-            <form >
+            <form onSubmit={this.orderHandler}>
                 {formElementsArray.map(formElement => (
                     <Input
                         key={formElement.id}
@@ -128,9 +171,7 @@ class ContactData extends Component {
                         elementType={formElement.config.elementType}
                         changed={(e) => this.inputChangedHandler(e, formElement.id)} />
                 ))}
-                <Button
-                    clicked={this.orderHandler}
-                    btnType="Success">ORDER</Button>
+                <Button btnType="Success">ORDER</Button>
             </form>
         );
 

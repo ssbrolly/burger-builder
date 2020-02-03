@@ -33,6 +33,7 @@ const Input = (props) => {
                 ))}
             </select>
         );
+
     } else {
         inputElement = <input
             className={classes.InputElement}
