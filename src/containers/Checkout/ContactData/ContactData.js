@@ -48,6 +48,7 @@ class ContactData extends Component {
                 },
                 valid: false,
                 touched: false,
+                delivery: true,
             },
             country: {
                 elementType: 'input',
@@ -127,7 +128,7 @@ class ContactData extends Component {
             });
     };
 
-    checkValidity = (value, rules) => {
+    checkValidity = (value, rules, delivery) => {
         let isValid = true;
 
         if (rules) {
@@ -135,10 +136,12 @@ class ContactData extends Component {
                 isValid = value.trim() !== '' && isValid;
             };
 
-            if (rules.length >= value.length && isValid) {
-                isValid = true;
-            } else {
-                isValid = false;
+            if (delivery) {
+                if (rules.length >= value.length && isValid) {
+                    isValid = true;
+                } else {
+                    isValid = false;
+                };
             };
 
             return isValid;
@@ -153,7 +156,11 @@ class ContactData extends Component {
             ...updatedOrderForm[inputIdentifier]
         };
         updatedFormElement.value = e.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.valid = this.checkValidity(
+            updatedFormElement.value,
+            updatedFormElement.validation,
+            updatedFormElement.delivery
+        );
         updatedFormElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
         console.log(updatedFormElement);
